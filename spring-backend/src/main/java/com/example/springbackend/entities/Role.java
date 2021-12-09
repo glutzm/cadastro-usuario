@@ -22,5 +22,5 @@ public class Role extends BaseEntity{
     @NotNull
     @Size(min = 3, max = 40)
     @Column(nullable = false, length = 40, unique = true)
-    public String name;
+    private String name;
 }
