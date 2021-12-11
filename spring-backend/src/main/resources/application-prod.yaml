@@ -1,0 +1,15 @@
+# Spring Data
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+
+  messages:
+    basename: languages/messages
+
+  thymeleaf:
+    cache: false
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
