@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cadastro-usuario-web:latest
+    depends_on:
+      - db
+    ports:
+      - "80:8080"
+    networks:
+      - cadastro-usuario-web
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+    environment:
+      POSTGRES_DB: 'cadastro_usuario_web'
+      POSTGRES_PASSWORD: 'password'
+    volumes:
+      - cadastro-usuario-web-db:/var/lib/mysql
+    networks:
+      - cadastro-usuario-web
+
+volumes:
+  cadastro-usuario-web-db:
+
+networks:
+  cadastro-usuario-web:
+    driver: bridge
