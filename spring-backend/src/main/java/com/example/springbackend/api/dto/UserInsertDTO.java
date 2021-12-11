@@ -10,9 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDTO {
+public class UserInsertDTO {
 
-    private Long id;
     private String name;
     private String email;
     private String cpf;
@@ -23,8 +22,13 @@ public class UserDTO {
     private AddressDTO address;
     private RoleDTO role;
 
-    public UserDTO(User entity) {
-        id = entity.getId();
+    // TODO: prever datas de registros para auditoria
+//    @JsonIgnore
+//    private final LocalDateTime createdAt = LocalDateTime.now();
+//    @JsonIgnore
+//    private final LocalDateTime editedAt = LocalDateTime.now();
+
+    public UserInsertDTO(User entity) {
         name = entity.getName();
         email = entity.getEmail();
         cpf = entity.getCpf();

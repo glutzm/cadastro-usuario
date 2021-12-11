@@ -7,13 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Id;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class AddressDTO {
 
-    private Long id;
     private String country;
     private State state;
     private String city;
@@ -23,7 +24,6 @@ public class AddressDTO {
     private String complement;
 
     public AddressDTO(Address entity) {
-        id = entity.getId();
         country = entity.getCountry();
         state = entity.getState();
         city = entity.getCity();
