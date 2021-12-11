@@ -16,7 +16,11 @@ import javax.validation.constraints.Size;
 @ToString
 @Getter
 @Setter
-public abstract class Person extends BaseEntity{
+public abstract class Person {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Size(min = 3, max = 80)
@@ -43,7 +47,7 @@ public abstract class Person extends BaseEntity{
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @Valid
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id_fk", nullable = false)
     private Address address;
 }

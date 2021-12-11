@@ -3,10 +3,7 @@ package com.example.springbackend.entities;
 import com.example.springbackend.enums.State;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -17,7 +14,12 @@ import javax.validation.constraints.Size;
 @ToString
 @Getter
 @Setter
-public class Address extends BaseEntity{
+@Builder
+public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Size(min = 3, max = 60)

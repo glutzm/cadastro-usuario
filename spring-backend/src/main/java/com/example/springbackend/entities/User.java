@@ -2,9 +2,11 @@ package com.example.springbackend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -15,7 +17,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Table(name = "app_users")
-public class User extends Person{
+public class User extends Person {
 
     @JsonIgnore
     @Size(min = 6, max = 255)
@@ -32,4 +34,34 @@ public class User extends Person{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id_fk", nullable = false)
     private Role role;
+
+    public User(
+            Long id,
+            String name,
+            String email,
+            String cpf,
+            String pis,
+            Address address,
+            String password,
+            Boolean active,
+            Role role) {
+        super(id, name, email, cpf, pis, address);
+        this.password = password;
+        this.active = active;
+        this.role = role;
+    }
+
+    public User(
+            Long id,
+            String name,
+            String email,
+            String cpf,
+            String pis,
+            Address address,
+            Boolean active,
+            Role role) {
+        super(id, name, email, cpf, pis, address);
+        this.active = active;
+        this.role = role;
+    }
 }
