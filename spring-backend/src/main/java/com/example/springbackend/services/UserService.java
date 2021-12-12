@@ -1,6 +1,5 @@
 package com.example.springbackend.services;
 
-import com.example.springbackend.entities.Address;
 import com.example.springbackend.entities.User;
 import com.example.springbackend.exceptions.UserNotFoundException;
 import com.example.springbackend.repositories.UserRepository;

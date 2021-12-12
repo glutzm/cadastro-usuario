@@ -1,6 +1,5 @@
 package com.example.springbackend.api.util;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.MethodParameter;
