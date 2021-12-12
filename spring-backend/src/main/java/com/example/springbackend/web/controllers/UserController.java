@@ -6,9 +6,11 @@ import com.example.springbackend.enums.State;
 import com.example.springbackend.exceptions.UserNotFoundException;
 import com.example.springbackend.services.RoleService;
 import com.example.springbackend.services.UserService;
+import com.example.springbackend.validators.CepValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +26,14 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private CepValidator cepValidator;
+
+    @InitBinder("user")
+    private void initBinder(WebDataBinder binder) {
+        binder.addValidators(cepValidator);
+    }
 
     @GetMapping
     public ModelAndView index() {

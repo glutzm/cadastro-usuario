@@ -2,17 +2,13 @@ package com.example.springbackend.api.dto;
 
 import com.example.springbackend.entities.Address;
 import com.example.springbackend.enums.State;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.Id;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class AddressDTO {
 
     private String country;

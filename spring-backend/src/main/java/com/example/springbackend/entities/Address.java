@@ -1,6 +1,7 @@
 package com.example.springbackend.entities;
 
 import com.example.springbackend.enums.State;
+import com.example.springbackend.util.UserInfoConverter;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -41,6 +42,7 @@ public class Address {
 
     @NotNull
     @Size(min = 8, max = 8)
+    @Convert(converter = UserInfoConverter.class)
     @Column(nullable = false, length = 8)
     private String cep;
 

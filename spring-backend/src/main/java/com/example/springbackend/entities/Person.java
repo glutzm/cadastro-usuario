@@ -1,5 +1,6 @@
 package com.example.springbackend.entities;
 
+import com.example.springbackend.util.UserInfoConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
@@ -36,12 +37,14 @@ public abstract class Person {
     @NotNull
     @CPF
     @Size(min = 11, max = 11)
+    @Convert(converter = UserInfoConverter.class)
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
 
     //TODO criar custom validador PIS
     @NotNull
     @Size(min = 11, max = 11)
+    @Convert(converter = UserInfoConverter.class)
     @Column(nullable = false, length = 11, unique = true)
     private String pis;
 
