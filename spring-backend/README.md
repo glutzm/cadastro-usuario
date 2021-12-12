@@ -5,7 +5,9 @@ TODOs
 
 Requisitos
 - [ ] Validar dados de entrada do usuário adequadamente
-- [ ] Armazenar as informações em banco de dados relacional
+  - [ ] Backend
+  - [ ] Frontend
+- [x] Armazenar as informações em banco de dados relacional
 - [ ] Armazenar a sessão do usuário em cookies
 - [ ] Testes unitários
 
@@ -13,7 +15,9 @@ Geral
 - [ ] Analisar regras de negócio e escrever documentação inicial
 - [ ] "Dockerizar" aplicação (Dockerfile + docker-compose)
 - [ ] Integrar com variáveis de ambiente
-- [ ] Deixar banco acessível apenas para o back (network)
+  - [x] Backend
+  - [ ] Frontend
+- [x] Deixar banco acessível apenas para o back (network)
 - [ ] Escrever documentação final
 
 Back-end
@@ -22,10 +26,10 @@ Back-end
 - [ ] Estudar integração OAuth2 com Spring
 - [ ] Alinhar entidades com especificação OAuth2
 - [ ] Implementação OAuth2 (Github/Google/Conta normal)
-- [ ] Criar API
+- [x] Criar API
 - [ ] Criar painel administrativo
 - [ ] Realizar autenticação JWT
-- [ ] Desenvolver lógica
+- [x] Desenvolver lógica
 - [ ] Subir Back-end Heroku
 
 Front-end
