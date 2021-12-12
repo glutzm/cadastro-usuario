@@ -29,9 +29,9 @@ public class DbInit implements CommandLineRunner {
         // insert default roles
         if (roleRepository.findAll().isEmpty()) {
             Role adminRole = Role.builder().name("Gerente").build();
-            Role veterinarianRole = Role.builder().name("Desenvolvedor(a)").build();
+            Role userRole = Role.builder().name("Desenvolvedor(a)").build();
             roleRepository.save(adminRole);
-            roleRepository.save(veterinarianRole);
+            roleRepository.save(userRole);
         }
         // insert default user
         if (userRepository.findAll().isEmpty()) {
