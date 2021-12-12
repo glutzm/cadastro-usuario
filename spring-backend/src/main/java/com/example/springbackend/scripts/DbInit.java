@@ -11,10 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class DbInit implements CommandLineRunner {
 
@@ -32,12 +28,10 @@ public class DbInit implements CommandLineRunner {
 
         // insert default roles
         if (roleRepository.findAll().isEmpty()) {
-            Role adminRole = new Role(null, "Gerente");
-            Role veterinarianRole = new Role(null, "Desenvolvedor(a)");
-            List<Role> roles = new ArrayList<>();
-            roles.add(adminRole);
-            roles.add(veterinarianRole);
-            roleRepository.saveAll(roles);
+            Role adminRole = Role.builder().name("Gerente").build();
+            Role veterinarianRole = Role.builder().name("Desenvolvedor(a)").build();
+            roleRepository.save(adminRole);
+            roleRepository.save(veterinarianRole);
         }
         // insert default user
         if (userRepository.findAll().isEmpty()) {

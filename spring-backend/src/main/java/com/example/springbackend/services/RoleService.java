@@ -43,15 +43,13 @@ public class RoleService {
         return roleRepository.save(role);
     }
 
-//    public Role insert(RoleDTO roleDTO) {}
-
     public Role update(Role role, Long id) {
-        searchById(id);
+        Role roleFound = searchById(id);
+
+        role.setCreateDateTime(roleFound.getCreateDateTime());
 
         return roleRepository.save(role);
     }
-
-//    public Role update(RoleDTO roleDTO, Long id) {}
 
     public void deleteById(Long id) {
         Role roleFound = searchById(id);

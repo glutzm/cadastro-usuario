@@ -63,6 +63,8 @@ public class UserService {
     public User update(User user, Long id) {
         User userFound = searchById(id);
 
+        user.setCreateDateTime(userFound.getCreateDateTime());
+
         // Verificar se houve troca de senha
         if (user.getPassword() == null) {
             user.setPassword(userFound.getPassword());
@@ -76,6 +78,7 @@ public class UserService {
             user.setAddress(userFound.getAddress());
         } else {
             user.getAddress().setId(userFound.getAddress().getId());
+            user.getAddress().setCreateDateTime(userFound.getAddress().getCreateDateTime());
         }
 
         // Verificar se houve troca de cargo

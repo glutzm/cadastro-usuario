@@ -2,11 +2,14 @@ package com.example.springbackend.entities;
 
 import com.example.springbackend.enums.State;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -52,4 +55,14 @@ public class Address {
     private String number;
 
     private String complement;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Column(name = "create_date_time")
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Column(name = "update_date_time")
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 }
