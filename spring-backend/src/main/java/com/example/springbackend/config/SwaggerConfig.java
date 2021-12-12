@@ -1,18 +1,23 @@
 package com.example.springbackend.config;
 
+import com.example.springbackend.api.dto.UserInsertDTO;
+import com.example.springbackend.api.dto.UserUpdateDTO;
+import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2
+@Import(SpringDataRestConfiguration.class)
 public class SwaggerConfig {
 
     private static final String CONTATO_EMAIL = "gustavo.almatos@gmail.com";
@@ -24,8 +29,12 @@ public class SwaggerConfig {
     private static final String PACOTE_BASE = "com.example.springbackend.api";
 
     @Bean
-    public Docket getDocket() {
+    public Docket getDocket(TypeResolver typeResolver) {
         return new Docket(DocumentationType.SWAGGER_2)
+                .additionalModels(
+                        typeResolver.resolve(UserUpdateDTO.class),
+                        typeResolver.resolve(UserInsertDTO.class)
+                )
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(PACOTE_BASE))
                 .paths(PathSelectors.any())
