@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: layout (~{::title}, ~{::main}, _, _)}">
+<head>
+  <title></title>
+</head>
+<body>
+
+<main>
+  <h1 sec:authorize="isAnonymous()">
+    Olá, Visitante
+  </h1>
+  <h1 sec:authorize="isAuthenticated()">
+    Olá, [[${#authentication.principal.getFullName()}]]
+  </h1>
+</main>
+
+</body>
+</html>
