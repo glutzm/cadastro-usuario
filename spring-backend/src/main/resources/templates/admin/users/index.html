@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: layout (~{::title}, ~{::main}, _, ~{::scripts})}">
+<head>
+  <title>[[#{user.list.title}]]</title>
+</head>
+<body>
+
+<main>
+  <div class="row">
+    <div class="col-sm-12">
+      <form action="#" class="d-flex cold-md-12">
+        <input type="text"
+               class="form-control me-2"
+               id="txt-search"
+               th:placeholder="#{user.list.search.placeholder}"
+               aria-label="Search">
+        <button class="btn btn-outline-success"
+                id="btn-search"
+                type="submit" th:text="#{list.search.button}">
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table" id="tbl-users">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col" th:text="#{user.list.table.col.login}"></th>
+          <th scope="col" th:text="#{user.list.table.col.name}"></th>
+          <th scope="col" th:text="#{user.list.table.col.state}"></th>
+          <th scope="col" th:text="#{user.list.table.col.role}"></th>
+          <th scope="col" th:text="#{user.list.table.col.actions}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+          <td th:text="${user.id}"></td>
+          <td th:text="${user.email}"></td>
+          <td th:text="${user.name}"></td>
+          <td th:text="${user.active} ? 'Habilitado' : 'Desabilitado'"></td>
+          <td th:text="${user.role.name}">
+          </td>
+          <td>
+            <div class="btn-group">
+              <a th:href="@{/admin/users/{id} (id=${user.id})}"
+                 class="btn btn-primary" type="button"
+                 data-bs-toggle="tooltip" data-bs-placement="top" th:title="#{list.table.col.actions.button.view}">
+                <i class="fas fa-eye"></i>
+              </a>
+              <a th:href="@{/admin/users/{id}/update (id=${user.id})}"
+                 class="btn btn-warning" type="button"
+                 data-bs-toggle="tooltip" data-bs-placement="top" th:title="#{list.table.col.actions.button.edit}">
+                <i class="fas fa-edit"></i>
+              </a>
+              <a class="btn" th:classappend="${user.active} ? 'btn-danger' : 'btn-success'"
+                 type="button"
+                 th:href="@{/admin/users/{id}/change-availability (id=${user.id})}"
+                 th:onclick="${user.active} ?
+                'return confirm(\'Tem certeza de que deseja desabilitar o usuário?\')' :
+                 'return confirm(\'Tem certeza de que deseja habilitar o usuário?\')'"
+                 data-bs-toggle="tooltip" data-bs-placement="top"
+                 th:title="${user.active} ? #{list.table.col.actions.button.disable} : #{list.table.col.actions.button.enable}">
+                <i class="fas" th:classappend="${user.active} ? 'fa-arrow-down' : 'fa-arrow-up'"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-sm-12">
+        <a th:href="@{/admin/users/insert}"
+           class="btn btn-primary" th:text="#{user.list.button.insert}"></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<th:block th:fragment="scripts">
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $('#btn-search').click(function () {
+              const userName = $('#txt-search').val();
+              let active;
+              let title;
+              let message;
+              let cssClass;
+              let icon;
+              $.ajax({
+                  method: 'GET',
+                  url: '/admin/users/search?name=' + userName,
+                  success: function (data) {
+                      $('#tbl-users tbody > tr').remove();
+                      $.each(data, function (index, user) {
+                          if (user.active) {
+                              cssClass = 'btn-danger';
+                              icon = 'fa-arrow-down';
+                              active = 'Habilitado';
+                              title = 'Desabilitar';
+                              message = 'return confirm(\'Tem certeza de que deseja desabilitar o usuário ?\')';
+                          } else {
+                              cssClass = 'btn-success';
+                              icon = 'fa-arrow-up';
+                              active = 'Desabilitado';
+                              title = 'Habilitar';
+                              message = 'return confirm(\'Tem certeza de que deseja habilitar o usuário ?\')';
+                          }
+                          $('#tbl-users tbody').append(
+                              '<tr>' +
+                              '  <td>' + user.id + '</td>' +
+                              '  <td>' + user.email + '</td>' +
+                              '  <td>' + user.name + '</td>' +
+                              '  <td>' + active + '</td>' +
+                              '  <td>' + user.role.name + '</td>' +
+                              '  <td>' +
+                              '    <div class="btn-group">' +
+                              '    <a href="/admin/users/' + user.id + '" class="btn btn-primary"' +
+                              '       type="button" data-bs-toggle="tooltip" data-bs-placement="top"' +
+                              '       title="Visualizar"><i class="fas fa-eye"></i></a>' +
+                              '    <a href="/admin/users/' + user.id + '/update" class="btn btn-warning"' +
+                              '       type="button" data-bs-toggle="tooltip" data-bs-placement="top"' +
+                              '       title="Editar"><i class="fas fa-edit"></i></a>' +
+                              '    <a href="/admin/users/' + user.id + '/change-availability"' +
+                              '       class="btn ' + cssClass + '" type="button"' +
+                              '       data-bs-toggle="tooltip" data-bs-placement="top"' +
+                              '       title="' + title + '"' +
+                              '       onclick="' + message + '">' +
+                              '        <i class="fas ' + icon + '"></i></a>' +
+                              '    </div>' +
+                              '  </td>' +
+                              '</tr>'
+                          );
+                      })
+                      let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                      let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                          return new bootstrap.Tooltip(tooltipTriggerEl)
+                      })
+                  },
+                  error: function () {
+                      alert("Houve um erro na requisição!");
+                  }
+              });
+              return false;
+          });
+      });
+  </script>
+  <script>
+      let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+  </script>
+</th:block>
+
+</body>
+</html>
