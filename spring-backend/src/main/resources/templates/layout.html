@@ -32,7 +32,7 @@
 <div th:replace="~{fragments/_header :: content-header (${title})}"></div>
 
 <!-- Main Content -->
-<section class="container">
+<main class="container">
   <!-- Flash Container -->
   <div class="alert alert-dismissible fade show" role="alert" th:classappend="${alert.cssClass}"
        th:if="${alert != null}">
@@ -41,8 +41,8 @@
     </button>
   </div>
 
-  <div class="container-fluid" th:include="${content}"></div>
-</section>
+  <div class="container" th:include="${content}"></div>
+</main>
 
 <footer th:replace="~{fragments/_footer :: footer}"></footer>
 
