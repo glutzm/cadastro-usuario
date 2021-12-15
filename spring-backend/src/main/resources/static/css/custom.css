@@ -18,3 +18,28 @@ select[readonly] {
 .mt-6 {
     margin-top: 4rem !important;
 }
+
+#form-content {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: #fff;
+    width: 100%;
+    position: relative;
+    padding: 0;
+    -webkit-box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
+    box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.fieldset-content > legend {
+    text-align: start;
+}
+
+div > label {
+    text-align: start;
+    align-items: center;
+}
+
+.overflow-x {
+    overflow-x: auto;
+}

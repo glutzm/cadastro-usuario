@@ -3,90 +3,105 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<fieldset th:fragment="address-form">
+<fieldset class="fieldset-content" th:fragment="address-form">
   <legend th:text="#{address.form.legend}"></legend>
 
   <input type="hidden" th:field="*{address.id}">
 
   <div class="row">
     <div class="col-md-4 col-sm-12">
-      <div class="form-group">
-        <label for="cep" class="form-label" th:text="#{address.form.cep}"></label>
-        <input type="text" class="form-control" id="cep" th:placeholder="#{address.form.cep.placeholder}"
-               th:field="*{address.cep}">
-        <ul>
-          <li class="text-danger" th:each="error : ${#fields.errors('address.cep')}"
-              th:text="${error}"></li>
-        </ul>
+      <div class="form-group row">
+        <label for="cep" class="form-label col-sm-2 col-md-12 col-lg-3" th:text="#{address.form.cep}"></label>
+        <div class="col-sm-10 col-md-12 col-lg-9">
+          <input type="text" class="form-control" id="cep" th:placeholder="#{address.form.cep.placeholder}"
+                 th:field="*{address.cep}">
+          <ul>
+            <li class="text-danger" th:each="error : ${#fields.errors('address.cep')}"
+                th:text="${error}"></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="col-md-4 col-sm-12">
-      <div class="form-group">
-        <label for="state" class="form-label" th:text="#{address.form.state}"></label>
-        <select th:field="*{address.state}" class="form-control" style="width: 100%;" id="state">
-          <option th:each="state : ${states}" th:text="${state}" th:value="${state}"></option>
-        </select>
-        <ul>
-          <li class="text-danger" th:each="error : ${#fields.errors('address.state')}"
-              th:text="${error}"></li>
-        </ul>
+      <div class="form-group row">
+        <label for="state" class="form-label col-sm-3 col-md-12 col-lg-3" th:text="#{address.form.state}"></label>
+        <div class="col-sm-9 col-md-12 col-lg-9">
+          <select th:field="*{address.state}" class="form-control" style="width: 100%;" id="state">
+            <option th:each="state : ${states}" th:text="${state}" th:value="${state}"></option>
+          </select>
+          <ul>
+            <li class="text-danger" th:each="error : ${#fields.errors('address.state')}"
+                th:text="${error}"></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="col-md-4 col-sm-12">
-      <div class="form-group">
-        <label for="city" class="form-label" th:text="#{address.form.city}"></label>
-        <input type="text" class="form-control" id="city" th:placeholder="#{address.form.city.placeholder}"
-               th:field="*{address.city}">
-        <ul>
-          <li class="text-danger" th:each="error : ${#fields.errors('address.city')}"
-              th:text="${error}"></li>
-        </ul>
+      <div class="form-group row">
+        <label for="city" class="form-label col-sm-3 col-md-12 col-lg-3" th:text="#{address.form.city}"></label>
+        <div class="col-sm-9 col-md-12 col-lg-9">
+          <input type="text" class="form-control" id="city" th:placeholder="#{address.form.city.placeholder}"
+                 th:field="*{address.city}">
+          <ul>
+            <li class="text-danger" th:each="error : ${#fields.errors('address.city')}"
+                th:text="${error}"></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-4 col-sm-12">
-      <div class="form-group">
-        <label for="street" class="form-label" th:text="#{address.form.street}"></label>
-        <input type="text" class="form-control" id="street"
-               th:placeholder="#{address.form.street.placeholder}" th:field="*{address.street}">
-        <ul>
-          <li class="text-danger" th:each="error : ${#fields.errors('address.street')}"
-              th:text="${error}"></li>
-        </ul>
+      <div class="form-group row">
+        <label for="street" class="form-label col-sm-2 col-md-12 col-lg-3" th:text="#{address.form.street}"></label>
+        <div class="col-sm-10 col-md-12 col-lg-9">
+          <input type="text" class="form-control" id="street"
+                 th:placeholder="#{address.form.street.placeholder}" th:field="*{address.street}">
+          <ul>
+            <li class="text-danger" th:each="error : ${#fields.errors('address.street')}"
+                th:text="${error}"></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="col-md-4 col-sm-12">
-      <div class="form-group">
-        <label for="number" class="form-label" th:text="#{address.form.number}"></label>
-        <input type="text" class="form-control" id="number" th:placeholder="#{address.form.number.placeholder}"
-               th:field="*{address.number}">
-        <ul>
-          <li class="text-danger" th:each="error : ${#fields.errors('address.number')}"
-              th:text="${error}"></li>
-        </ul>
+      <div class="form-group row">
+        <label for="number" class="form-label col-sm-3 col-md-12 col-lg-4" th:text="#{address.form.number}"></label>
+        <div class="col-sm-9 col-md-12 col-lg-8">
+          <input type="text" class="form-control" id="number" th:placeholder="#{address.form.number.placeholder}"
+                 th:field="*{address.number}">
+          <ul>
+            <li class="text-danger" th:each="error : ${#fields.errors('address.number')}"
+                th:text="${error}"></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="col-md-4 col-sm-12">
-      <div class="form-group">
-        <label for="number" class="form-label" th:text="#{address.form.country}"></label>
-        <input type="text" class="form-control" id="country" th:placeholder="#{address.form.country.placeholder}"
-               th:field="*{address.country}">
-        <ul>
-          <li class="text-danger" th:each="error : ${#fields.errors('address.country')}"
-              th:text="${error}"></li>
-        </ul>
+      <div class="form-group row">
+        <label for="number" class="form-label col-sm-2 col-md-12 col-lg-3" th:text="#{address.form.country}"></label>
+        <div class="col-sm-10 col-md-12 col-lg-9">
+          <input type="text" class="form-control" id="country" th:placeholder="#{address.form.country.placeholder}"
+                 th:field="*{address.country}">
+          <ul>
+            <li class="text-danger" th:each="error : ${#fields.errors('address.country')}"
+                th:text="${error}"></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="row mb-3">
     <div class="col-sm-12">
-      <div class="form-group">
-        <label for="complement" class="form-label" th:text="#{address.form.complement}"></label>
-        <input type="text" class="form-control" id="complement" th:placeholder="#{address.form.complement.placeholder}"
-               th:field="*{address.complement}">
+      <div class="form-group row">
+        <label for="complement" class="form-label col-sm-4 col-md-12 col-lg-2" th:text="#{address.form.complement}"></label>
+        <div class="col-sm-8 col-md-12 col-lg-10">
+          <input type="text" class="form-control" id="complement"
+                 th:placeholder="#{address.form.complement.placeholder}"
+                 th:field="*{address.complement}">
+        </div>
       </div>
     </div>
   </div>
