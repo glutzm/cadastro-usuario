@@ -64,4 +64,8 @@ public class AppUserDetailsImpl implements UserDetails {
     public Long getId() {
         return this.user.getId();
     }
+
+    public String getFullName() {
+        return this.user.getName();
+    }
 }

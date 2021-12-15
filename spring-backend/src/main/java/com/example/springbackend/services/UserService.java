@@ -42,7 +42,7 @@ public class UserService {
     }
 
     public List<User> searchByName(String name) {
-        return userRepository.findByName(name)
+        return userRepository.findByNameContainingIgnoreCase(name)
                 .orElseThrow(() -> new UserNotFoundException(name));
     }
 

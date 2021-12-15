@@ -45,6 +45,13 @@ public class RoleController {
 
         if (result.hasErrors()) {
             mav.setViewName("admin/roles/form");
+            mav.addObject(
+                    "alert",
+                    new AlertDTO(
+                            "Cargo não pode ser cadastrado!",
+                            "alert-danger"
+                    )
+            );
             return mav;
         }
 
@@ -88,6 +95,13 @@ public class RoleController {
 
         if (result.hasErrors()) {
             mav.setViewName("admin/roles/form");
+            mav.addObject(
+                    "alert",
+                    new AlertDTO(
+                            "Cargo não pode ser atualizado!",
+                            "alert-danger"
+                    )
+            );
             return mav;
         }
 

@@ -37,7 +37,7 @@ public abstract class Person {
     @NotNull
     @CPF
     @Size(min = 11, max = 11)
-    @Convert(converter = UserInfoConverter.class)
+    @Convert(converter = UserInfoConverter.class)  // TODO: rever converters
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
 

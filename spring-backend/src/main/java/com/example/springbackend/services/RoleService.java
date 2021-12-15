@@ -35,7 +35,7 @@ public class RoleService {
     }
 
     public List<Role> searchByName(String name) {
-        return roleRepository.findByName(name)
+        return roleRepository.findByNameContainingIgnoreCase(name)
                 .orElseThrow(() -> new RoleNotFoundException(name));
     }
 

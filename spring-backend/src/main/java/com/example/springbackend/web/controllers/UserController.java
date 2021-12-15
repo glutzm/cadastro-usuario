@@ -54,6 +54,7 @@ public class UserController {
                     ? "Usuário habilitado com sucesso!"
                     : "Usuário desabilitado com sucesso!";
             attributes.addFlashAttribute(
+                    "alert",
                     new AlertDTO(
                             message,
                             "alert-success"
@@ -61,6 +62,7 @@ public class UserController {
             );
         } catch (UserNotFoundException e) {
             attributes.addFlashAttribute(
+                    "alert",
                     new AlertDTO(
                             "Usuário não pode ser alterado!",
                             "alert-danger"
@@ -91,9 +93,10 @@ public class UserController {
             fillForm(mav);
 
             mav.setViewName("admin/users/form");
-            attributes.addFlashAttribute(
+            mav.addObject(
+                    "alert",
                     new AlertDTO(
-                            "Usuário não pode ser alterado!",
+                            "Usuário não pode ser cadastrado!",
                             "alert-danger"
                     )
             );
@@ -103,13 +106,15 @@ public class UserController {
         try {
             userService.insert(user);
             attributes.addFlashAttribute(
+                    "alert",
                     new AlertDTO(
-                            "Usuário cadastrado cmo sucesso!",
+                            "Usuário cadastrado com sucesso!",
                             "alert-success"
                     )
             );
         } catch (Exception e) {
             attributes.addFlashAttribute(
+                    "alert",
                     new AlertDTO(
                             "Usuário não pode ser cadastrado!",
                             "alert-danger"
@@ -140,12 +145,18 @@ public class UserController {
         if (result.hasErrors()) {
             fillForm(mav);
             mav.setViewName("admin/users/form");
+            mav.addObject("alert",
+                    new AlertDTO(
+                            "Usuário não pode ser atualizado!",
+                            "alert-danger"
+                    ));
             return mav;
         }
 
         try {
             userService.update(user, id);
             attributes.addFlashAttribute(
+                    "alert",
                     new AlertDTO(
                             "Usuário atualizado com sucesso!",
                             "alert-success"
@@ -153,6 +164,7 @@ public class UserController {
             );
         } catch (Exception e) {
             attributes.addFlashAttribute(
+                    "alert",
                     new AlertDTO(
                             "Usuário não pode ser atualizado!",
                             "alert-danger"
