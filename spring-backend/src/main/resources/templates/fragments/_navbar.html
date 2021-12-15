@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header th:fragment="nav">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/" th:text="#{navbar.brand}"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/"
+               th:text="#{navbar.menu.home}"></a>
+          </li>
+
+          <li sec:authorize="hasAnyRole('ADMIN', 'USER')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="adminNavbarDropdown" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false" href="#" th:text="#{navbar.menu.admin}"></a>
+            <ul class="dropdown-menu" aria-labelledby="adminNavbarDropdown">
+              <li sec:authorize="hasRole('ADMIN')">
+                <a class="dropdown-item"
+                   th:href="@{/admin/roles}" th:text="#{navbar.menu.admin.roles}"></a>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                   th:href="@{/admin/users}" th:text="#{navbar.menu.admin.employees}"></a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="d-flex container-fluid justify-content-end">
+          <a sec:authorize="isAnonymous()" href="/login" class="btn btn-primary me-2"
+             th:text="#{navbar.button.login}"></a>
+          <form class="form-inline" form-method="post" th:action="@{/logout}">
+            <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger" type="submit"
+                    th:text="#{navbar.button.logout}"
+                    onclick="return confirm('Tem certeza de que deseja fazer logout?')"
+            >
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+</html>
