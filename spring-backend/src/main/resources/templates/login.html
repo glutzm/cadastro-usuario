@@ -2,7 +2,7 @@
 <html th:lang="${#locale}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout :: layout (~{::title}, ~{::main}, ~{::styles}, _)}">
+      th:replace="~{layout :: layout (~{::title}, _, ~{::main}, ~{::styles}, _)}">
 <head>
   <title>[[#{login.title}]]</title>
   <th:block th:fragment="styles">
@@ -30,7 +30,7 @@
             <!-- Login Controls -->
             <div class="mb-3">
               <input type="text" class="form-control" id="username" name="username"
-                     placeholder="Usuário">
+                     placeholder="Email, CPF ou PIS">
             </div>
 
             <div class="mb-3">
