@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Getter
 @Setter
 @Builder
@@ -67,4 +66,21 @@ public class Address {
     @Column(name = "update_date_time")
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
+
+    @Override
+    public String toString() {
+
+        return street +
+                ", nº " +
+                number +
+                (complement == null ? "" : (", " + complement)) +
+                " - " +
+                state.getDescription() +
+                " - " +
+                city +
+                ", " +
+                country +
+                ". CEP: " +
+                cep;
+    }
 }
