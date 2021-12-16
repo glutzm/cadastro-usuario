@@ -1,8 +1,10 @@
 package com.example.springbackend.web.controllers;
 
 import com.example.springbackend.dto.AlertDTO;
+import com.example.springbackend.dto.ChangePasswordDTO;
 import com.example.springbackend.entities.User;
 import com.example.springbackend.enums.State;
+import com.example.springbackend.exceptions.PasswordDoesNotMatchException;
 import com.example.springbackend.exceptions.UserNotFoundException;
 import com.example.springbackend.services.RoleService;
 import com.example.springbackend.services.UserService;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -40,6 +43,53 @@ public class UserController {
         ModelAndView mav = new ModelAndView("admin/users/index");
         mav.addObject("users", userService.searchAll());
         return mav;
+    }
+
+    @GetMapping("/profile")
+    public ModelAndView details(Principal principal) {
+        ModelAndView mav = new ModelAndView("user/profile");
+        User user = userService.searchByEmail(principal.getName());
+        mav.addObject("user", user);
+        mav.addObject("passwordForm", new ChangePasswordDTO());
+        return mav;
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(
+            @Valid ChangePasswordDTO form,
+            BindingResult result,
+            Principal principal,
+            RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            attributes.addFlashAttribute(
+                    "alert",
+                    new AlertDTO(
+                            "Não foi possível alterar a senha.",
+                            "alert-danger"
+                    )
+            );
+            return "redirect:/admin/users/profile";
+        }
+
+        try {
+            userService.changePassword(form.getCurrentPassword(), form.getNewPassword(), principal.getName());
+            attributes.addFlashAttribute(
+                    "alert",
+                    new AlertDTO(
+                            "Senha alterada com sucesso!",
+                            "alert-success"
+                    )
+            );
+        } catch (PasswordDoesNotMatchException e) {
+            attributes.addFlashAttribute(
+                    "alert",
+                    new AlertDTO(
+                            e.getMessage(),
+                            "alert-danger"
+                    )
+            );
+        }
+        return "redirect:/admin/users/profile";
     }
 
     @GetMapping("/{id}/change-availability")

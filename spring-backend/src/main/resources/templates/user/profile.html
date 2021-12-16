@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: layout (~{::title}, ~{::header},~{::main}, _, ~{::scripts})}">
+<head>
+  <title>[[#{user.details.title}]]</title>
+</head>
+<body>
+
+<header>[[#{user.details.title}]]</header>
+
+<main>
+  <div class="row">
+    <div class="col-sm-12 mb-3">
+      <div class="row">
+        <div class="col-md-3">
+
+          <!-- Profile Image -->
+          <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+              <div class="text-center">
+                <img alt="User profile picture" class="profile-user-img img-fluid img-circle" id="profile-user-img">
+              </div>
+
+              <h3 class="profile-username text-center" th:text="${user.name}"></h3>
+            </div>
+          </div>
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title" th:text="#{person.details.card.title}"></h3>
+            </div>
+
+            <div class="card-body">
+              <div sec:authorize="hasRole('ADMIN')">
+                <strong><i class="fas fa-book mr-1"></i> [[#{person.details.card.cpf}]]</strong>
+                <p class="text-muted" th:text="${user.cpf}"></p>
+              </div>
+
+              <strong><i class="fas fa-mobile mr-1"></i> [[#{person.details.card.pis}]]</strong>
+              <p class="text-muted" th:text="${user.pis}"></p>
+
+              <strong><i class="fas fa-envelope mr-1"></i> [[#{person.details.card.email}]]</strong>
+              <p class="text-muted" id="email" th:text="${user.email}"></p>
+
+              <hr>
+
+              <div sec:authorize="hasRole('ADMIN')">
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> [[#{person.details.card.address}]]</strong>
+                <p class="text-muted" th:text="${user.address}"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9" id="update-password">
+          <div class="card">
+            <div class="card-header p-3">
+                <h6>Atualizar Senha</h6>
+            </div><!-- /.card-header -->
+<!--            TODO: Botão remover usuário-->
+            <div class="card-body">
+              <div class="tab-content">
+                <div class=" active tab-pane" id="mudar-senha">
+                  <form class="form-horizontal" method="POST" th:action="@{/admin/users/change-password}"
+                        th:object="${passwordForm}">
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group row">
+                          <label for="senhaAtual" class="form-label col-md-12 col-lg-3">Senha atual</label>
+                          <div class="col-md-12 col-lg-9">
+                            <input type="password" id="senhaAtual" class="form-control" th:field="*{currentPassword}">
+                            <ul>
+                              <li class="text-danger" th:each="error : ${#fields.errors('currentPassword')}"
+                                  th:text="${error}"></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12">
+                        <div class="form-group row">
+                          <label for="novaSenha" class="form-label col-md-12 col-lg-3">Nova senha</label>
+                          <div class="col-md-12 col-lg-9">
+                            <input type="password" id="novaSenha" class="form-control" th:field="*{newPassword}">
+                            <ul>
+                              <li class="text-danger" th:each="error : ${#fields.errors('newPassword')}"
+                                  th:text="${error}"></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Alterar senha</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div><!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<th:block th:fragment="scripts">
+  <script th:src="@{/js/avatar.min.js}"></script>
+  <script>
+      const email = document.getElementById("email").innerText;
+
+      const avatar = Avatar.from(document.getElementById('profile-user-img'), {
+          'email': email
+      });
+  </script>
+</th:block>
+
+</body>
+</html>

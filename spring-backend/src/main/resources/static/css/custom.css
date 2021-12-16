@@ -30,8 +30,23 @@ select[readonly] {
     box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
     text-align: center;
 }
+/*TODO: ajustar responsividade*/
+#update-password {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: #fff;
+    padding: 0;
+    -webkit-box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
+    box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
+    text-align: center;
+    height: fit-content;
+}
 
 .fieldset-content > legend {
+    text-align: start;
+}
+
+div > h6 {
     text-align: start;
 }
 

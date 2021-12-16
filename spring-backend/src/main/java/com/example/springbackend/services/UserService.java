@@ -1,8 +1,10 @@
 package com.example.springbackend.services;
 
 import com.example.springbackend.entities.User;
+import com.example.springbackend.exceptions.PasswordDoesNotMatchException;
 import com.example.springbackend.exceptions.UserNotFoundException;
 import com.example.springbackend.repositories.UserRepository;
+import com.example.springbackend.util.PasswordHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -96,6 +98,19 @@ public class UserService {
         User user = searchById(id);
         user.setActive(!user.getActive());
         return userRepository.save(user);
+    }
+
+    public void changePassword(
+            String currentPassword,
+            String newPassword,
+            String email) {
+        User user = searchByEmail(email);
+        if (PasswordHelper.matches(currentPassword, user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+        } else {
+            throw new PasswordDoesNotMatchException("Senha atual está incorreta.");
+        }
     }
 
     public void deleteById(Long id) {

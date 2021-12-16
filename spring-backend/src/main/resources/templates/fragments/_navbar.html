@@ -35,6 +35,12 @@
         <div class="d-flex container-fluid justify-content-end">
           <a sec:authorize="isAnonymous()" href="/login" class="btn btn-primary me-2"
              th:text="#{navbar.button.login}"></a>
+          <a sec:authorize="isAuthenticated()"
+             class="btn btn-outline-info me-2"
+             th:text="#{navbar.button.profile}"
+             th:href="@{/admin/users/profile}"
+
+          ></a>
           <form class="form-inline" form-method="post" th:action="@{/logout}">
             <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger" type="submit"
                     th:text="#{navbar.button.logout}"
