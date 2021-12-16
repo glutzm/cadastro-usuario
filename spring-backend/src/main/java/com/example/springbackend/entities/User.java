@@ -22,11 +22,11 @@ import java.time.LocalDateTime;
 public class User extends Person {
 
     @JsonIgnore
+    @NotNull
     @Size(min = 6, max = 255)
     @Column(nullable = false)
     private String password;
 
-    // TODO validar inicialização padrão
     @NotNull
     @Column(nullable = false)
     private Boolean active = true;
