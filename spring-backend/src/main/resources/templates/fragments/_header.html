@@ -3,11 +3,11 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<div th:fragment="content-header (title)" class="header">
+<div th:fragment="content-header (header)" class="header">
   <div class="container mt-6">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0" th:include="${title}">Dashboard</h1>
+        <h1 class="mb-3" th:include="${header}"></h1>
       </div>
     </div>
   </div>

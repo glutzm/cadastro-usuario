@@ -2,13 +2,15 @@
 <html th:lang="${#locale}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout :: layout (~{::title}, ~{::main}, _, ~{::scripts})}">
+      th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::main}, _, ~{::scripts})}">
 <head>
   <title>[[#{role.list.title}]]</title>
 </head>
 <body>
 
-<main class="container">
+<header>[[#{role.list.title}]]</header>
+
+<main>
   <div class="row">
     <div class="col-sm-12">
       <form action="#" class="d-flex cold-md-12">

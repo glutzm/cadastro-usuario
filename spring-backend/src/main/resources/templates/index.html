@@ -2,9 +2,9 @@
 <html th:lang="${#locale}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout :: layout (~{::title}, ~{::main}, _, _)}">
+      th:replace="~{layout :: layout (~{::title}, _, ~{::main}, _, _)}">
 <head>
-  <title></title>
+  <title>[[#{home.title}]]</title>
 </head>
 <body>
 

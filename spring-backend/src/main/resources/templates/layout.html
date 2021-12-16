@@ -2,13 +2,13 @@
 <html th:lang="${#locale}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:fragment="layout (title, content, styles, scripts)">
+      th:fragment="layout (title, header, content, styles, scripts)">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>[[#{layout.title}]] | <th:block th:include="${title}"> Página Inicial </th:block> </title>
+  <title>[[#{layout.title}]] | <th:block th:include="${title}"></th:block> </title>
 
   <!-- FontAwesome 5.10.0 -->
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -29,7 +29,7 @@
 <header th:replace="~{fragments/_navbar :: nav}"></header>
 
 <!-- Page Header -->
-<div th:replace="~{fragments/_header :: content-header (${title})}"></div>
+<div th:replace="~{fragments/_header :: content-header (${header})}"></div>
 
 <!-- Main Content -->
 <main class="container">
