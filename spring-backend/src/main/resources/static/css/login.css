@@ -46,3 +46,7 @@ label {
 .login-block {
     padding: 24px;
 }
+
+#sign-in {
+    font-size: 0.8em;
+}

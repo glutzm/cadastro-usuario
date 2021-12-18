@@ -8,6 +8,7 @@ import com.example.springbackend.exceptions.PasswordDoesNotMatchException;
 import com.example.springbackend.exceptions.UserNotFoundException;
 import com.example.springbackend.services.RoleService;
 import com.example.springbackend.services.UserService;
+import com.example.springbackend.util.FillUserForm;
 import com.example.springbackend.validators.CepValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FillUserForm fillUserForm;
+
     @Autowired
     private RoleService roleService;
 
@@ -127,7 +132,7 @@ public class UserController {
     public ModelAndView insert() {
         ModelAndView mav = new ModelAndView("admin/users/form");
         mav.addObject("user", new User());
-        fillForm(mav);
+        fillUserForm.fillForm(mav);
         return mav;
     }
 
@@ -140,7 +145,7 @@ public class UserController {
         ModelAndView mav = new ModelAndView("redirect:/admin/users");
 
         if (result.hasErrors()) {
-            fillForm(mav);
+            fillUserForm.fillForm(mav);
 
             mav.setViewName("admin/users/form");
             mav.addObject(
@@ -179,7 +184,7 @@ public class UserController {
     public ModelAndView update(@PathVariable Long id) {
         ModelAndView mav = new ModelAndView("admin/users/form");
         mav.addObject("user", userService.searchById(id));
-        fillForm(mav);
+        fillUserForm.fillForm(mav);
         return mav;
     }
 
@@ -193,7 +198,7 @@ public class UserController {
         ModelAndView mav = new ModelAndView("redirect:/admin/users");
 
         if (result.hasErrors()) {
-            fillForm(mav);
+            fillUserForm.fillForm(mav);
             mav.setViewName("admin/users/form");
             mav.addObject("alert",
                     new AlertDTO(
@@ -248,11 +253,6 @@ public class UserController {
         }
 
         return "redirect:/admin/users";
-    }
-
-    public void fillForm(ModelAndView mav) {
-        mav.addObject("roles", roleService.searchAll());
-        mav.addObject("states", State.values());
     }
 
     @GetMapping(value = "/search", produces = "application/json")

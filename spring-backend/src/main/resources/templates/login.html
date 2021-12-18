@@ -38,9 +38,13 @@
                      placeholder="Senha">
             </div>
 
-            <div class="mb-3">
+            <div class="mb-2">
               <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
               <label class="form-check-label" for="remember-me" th:text="#{login.form.rememberMe}"></label>
+            </div>
+
+            <div class="mb-1">
+              <a th:href="@{/sign-in}" id="sign-in" class="form-check-label" th:text="#{login.form.signIn}"></a>
             </div>
 
             <!-- Login Button -->

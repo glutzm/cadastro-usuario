@@ -2,13 +2,11 @@
 <html th:lang="${#locale}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout :: layout (~{::title}, ~{::header},~{::main}, _, ~{::scripts})}">
+      th:replace="~{layout :: layout (~{::title}, _,~{::main}, _, ~{::scripts})}">
 <head>
   <title>[[#{user.details.title}]]</title>
 </head>
 <body>
-
-<header>[[#{user.details.title}]]</header>
 
 <main>
   <div class="row">
@@ -45,7 +43,7 @@
 
               <hr>
 
-              <div sec:authorize="hasRole('ADMIN')">
+              <div>
                 <strong><i class="fas fa-map-marker-alt mr-1"></i> [[#{person.details.card.address}]]</strong>
                 <p class="text-muted" th:text="${user.address}"></p>
               </div>
