@@ -14,9 +14,7 @@ Requisitos
 Geral
 - [ ] Analisar regras de negócio e escrever documentação inicial
 - [ ] "Dockerizar" aplicação (Dockerfile + docker-compose)
-- [ ] Integrar com variáveis de ambiente
-  - [x] Backend
-  - [ ] Frontend
+- [x] Integrar com variáveis de ambiente
 - [x] Deixar banco acessível apenas para o back (network)
 - [ ] Escrever documentação final
 
@@ -27,24 +25,12 @@ Back-end
 - [ ] Alinhar entidades com especificação OAuth2
 - [ ] Implementação OAuth2 (Github/Google/Conta normal)
 - [x] Criar API
-- [ ] Criar painel administrativo
+- [x] Criar painel administrativo
 - [ ] Realizar autenticação JWT
 - [x] Desenvolver lógica
 - [ ] Subir Back-end Heroku
 
 Front-end
-- [x] Escolher tecnologia (JS/Vue.JS)
+- [x] Escolher tecnologia (Thymeleaf)
 - [ ] Deixar aplicação responsiva
 - [ ] Autenticação por firebase
-- [ ] Desenvolver lógica
-- [ ] Subir Front-end Netlify
-
-## Se tiver tempo...
-
-Mobile
-- [x] Escolher tecnologia (JS/React Native)
-- [ ] Desenhar front mobile
-- [ ] Desenvolver lógica
-
-Monitoração
-- [ ] Sentry.io
