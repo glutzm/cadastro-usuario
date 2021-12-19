@@ -37,15 +37,15 @@ public abstract class Person {
     private String email;
 
     @NotNull
-    @CPF
-    @Size(min = 11, max = 11)
+    @CPF(message = "CPF inválido.")
+    @Size(min = 11, max = 14)
     @Convert(converter = UserInfoConverter.class)  // TODO: rever converters
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
 
     //TODO criar custom validador PIS
     @NotNull
-    @Size(min = 11, max = 11)
+    @Size(min = 11, max = 14)
     @Convert(converter = UserInfoConverter.class)
     @Column(nullable = false, length = 11, unique = true)
     private String pis;

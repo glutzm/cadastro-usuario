@@ -15,7 +15,6 @@ Geral
 - [ ] Analisar regras de negócio e escrever documentação inicial
 - [ ] "Dockerizar" aplicação (Dockerfile + docker-compose)
 - [x] Integrar com variáveis de ambiente
-- [x] Deixar banco acessível apenas para o back (network)
 - [ ] Escrever documentação final
 
 Back-end
@@ -24,7 +23,7 @@ Back-end
 - [ ] Estudar integração OAuth2 com Spring
 - [ ] Alinhar entidades com especificação OAuth2
 - [ ] Implementação OAuth2 (Github/Google/Conta normal)
-- [x] Criar API
+- [x] Criar API REST
 - [x] Criar painel administrativo
 - [ ] Realizar autenticação JWT
 - [x] Desenvolver lógica
@@ -33,4 +32,3 @@ Back-end
 Front-end
 - [x] Escolher tecnologia (Thymeleaf)
 - [ ] Deixar aplicação responsiva
-- [ ] Autenticação por firebase

@@ -1,0 +1,10 @@
+<th:block th:fragment="form-scripts">
+  <script th:src="@{/webjars/jquery-mask-plugin/1.14.16/dist/jquery.mask.min.js}"></script>
+  <script>
+      $(document).ready(function () {
+          $('#cpf').mask('000.000.000-00')
+          $('#pis').mask('000.00000.00-0')
+          $('#cep').mask('00.000-000')
+      })
+  </script>
+</th:block>

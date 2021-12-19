@@ -14,7 +14,7 @@
       <div class="row">
 
         <div class="col-md-3">
-          <div class="card card-primary card-outline">
+          <div class="card card-primary card-outline profile-box">
             <div class="card-body box-profile">
               <div class="text-center">
                 <img alt="User profile picture" class="profile-user-img img-fluid img-circle" id="profile-user-img"
@@ -24,23 +24,22 @@
               <h3 class="profile-username text-center" th:text="${user.name}"></h3>
             </div>
           </div>
-          <div class="card card-primary">
+          <div class="card card-primary profile-box mb-3">
             <div class="card-header">
               <h3 class="card-title" th:text="#{person.details.card.title}"></h3>
             </div>
 
-            <div class="card-body">
-              <div sec:authorize="hasRole('ADMIN')">
+            <div class="card-body" id="user-details">
+              <div>
                 <strong><i class="fas fa-book mr-1"></i> [[#{person.details.card.cpf}]]</strong>
                 <p class="text-muted" th:text="${user.cpf}"></p>
+
+                <strong><i class="fas fa-mobile mr-1"></i> [[#{person.details.card.pis}]]</strong>
+                <p class="text-muted" th:text="${user.pis}"></p>
+
+                <strong><i class="fas fa-envelope mr-1"></i> [[#{person.details.card.email}]]</strong>
+                <p class="text-muted" id="email" th:text="${user.email}"></p>
               </div>
-
-              <strong><i class="fas fa-mobile mr-1"></i> [[#{person.details.card.pis}]]</strong>
-              <p class="text-muted" th:text="${user.pis}"></p>
-
-              <strong><i class="fas fa-envelope mr-1"></i> [[#{person.details.card.email}]]</strong>
-              <p class="text-muted" id="email" th:text="${user.email}"></p>
-
               <hr>
 
               <div>
@@ -53,26 +52,18 @@
 
         <div class="col-md-9">
 
-          <div class="acoes-usuario mb-3">
+          <div class="profile-box mb-3">
             <div class="card">
               <div class="card-header p-3">
                 <h6>Editar Dados</h6>
               </div>
               <div class="card-body">
-<!--                <a th:href="@{/admin/users/profile/update}"-->
-<!--                   class="btn btn-warning"-->
-<!--                   type="button"-->
-<!--                   data-bs-toggle="tooltip"-->
-<!--                   data-bs-placement="top"-->
-<!--                   th:title="#{profile.button.edit}"-->
-<!--                   th:text="#{profile.button.edit}"-->
-<!--                ></a>-->
                 <fieldset th:replace="~{admin/users/form :: user-form}"></fieldset>
               </div>
             </div>
           </div>
 
-          <div class="acoes-usuario mb-3">
+          <div class="profile-box mb-3">
             <div class="card">
               <div class="card-header p-3">
                 <h6>Atualizar Senha</h6>
@@ -109,17 +100,15 @@
                     </div>
                   </div>
 
-                  <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-10">
-                      <button type="submit" class="btn btn-primary">Alterar senha</button>
-                    </div>
+                  <div class="mb-1">
+                    <button type="submit" class="btn btn-primary" th:action="@{/admin/users/change-password}">Alterar senha</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
 
-          <div class="acoes-usuario mb-3">
+          <div class="profile-box mb-3">
             <div class="card">
               <div class="card-header p-3">
                 <h6>Excluir Meus Dados</h6>
@@ -156,6 +145,7 @@
           'email': email
       });
   </script>
+  <th:block th:replace="~{fragments/_form-scripts :: form-scripts}"></th:block>
 </th:block>
 
 </body>

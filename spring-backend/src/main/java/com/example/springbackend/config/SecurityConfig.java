@@ -43,14 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.headers().frameOptions().disable();
         }
 
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
                 .antMatchers("/admin/users/**").authenticated()
                 .antMatchers("/admin/roles/**").hasRole("ADMIN");
         http.csrf()
                 .ignoringAntMatchers("/api/v1/**");
-        http.cors().disable();
+//        http.cors().disable();
         http.formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/")

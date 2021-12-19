@@ -42,7 +42,7 @@ public class Address {
     private String city;
 
     @NotNull
-    @Size(min = 8, max = 8)
+    @Size(min = 8, max = 10)
     @Convert(converter = UserInfoConverter.class)
     @Column(nullable = false, length = 8)
     private String cep;

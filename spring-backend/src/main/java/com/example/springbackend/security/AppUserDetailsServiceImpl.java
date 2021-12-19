@@ -28,13 +28,13 @@ public class AppUserDetailsServiceImpl implements UserDetailsService {
 
         if (pisValidator.validate(login)){
             user = userRepository.findByPis(login)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found."));
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
         } else if (cpfValidator.validate(login)) {
             user = userRepository.findByCpf(login)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found."));
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
         } else {
             user = userRepository.findByEmail(login)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found."));
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
         }
 
         return new AppUserDetailsImpl(user);

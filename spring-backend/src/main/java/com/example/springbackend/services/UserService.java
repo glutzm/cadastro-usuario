@@ -43,6 +43,16 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(email));
     }
 
+    public User searchByCpf(String cpf) {
+        return userRepository.findByCpf(cpf)
+                .orElseThrow(() -> new UserNotFoundException(cpf));
+    }
+
+    public User searchByPis(String pis) {
+        return userRepository.findByPis(pis)
+                .orElseThrow(() -> new UserNotFoundException(pis));
+    }
+
     public List<User> searchByName(String name) {
         return userRepository.findByNameContainingIgnoreCase(name)
                 .orElseThrow(() -> new UserNotFoundException(name));

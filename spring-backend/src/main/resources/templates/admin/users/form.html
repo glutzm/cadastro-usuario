@@ -2,7 +2,7 @@
 <html th:lang="${#locale}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout :: layout (~{::title}, ~{::title}, ~{::main}, _, _)}">
+      th:replace="~{layout :: layout (~{::title}, ~{::title}, ~{::main}, _, ~{::scripts})}">
 
 <head>
   <title>[[${user.id == null ? 'Cadastrar' : 'Editar'}]] [[#{user.form.title}]]</title>
@@ -24,8 +24,8 @@
               <div class="row">
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group row">
-                    <label for="name" class="form-label col-sm-2 col-md-12 col-lg-2" th:text="#{user.form.name}"></label>
-                    <div class="col-sm-10 col-md-12 col-lg-10">
+                    <label for="name" class="form-label col-sm-2 col-md-12" th:text="#{user.form.name}"></label>
+                    <div class="col-sm-10 col-md-12">
                       <input type="text" class="form-control" id="name" th:placeholder="#{user.form.name.placeholder}"
                              th:field="*{name}"
                              required>
@@ -37,10 +37,11 @@
                 </div>
                 <div class="col-md-3 col-sm-12">
                   <div class="form-group row">
-                    <label for="cpf" class="form-label col-sm-2 col-md-12 col-lg-3" th:text="#{user.form.cpf}"></label>
-                    <div class="col-sm-10 col-md-12 col-lg-9">
+                    <label for="cpf" class="form-label col-sm-2 col-md-12" th:text="#{user.form.cpf}"></label>
+                    <div class="col-sm-10 col-md-12">
                       <input type="text" class="form-control" id="cpf" th:placeholder="#{user.form.cpf.placeholder}"
                              th:field="*{cpf}"
+                             onkeyup="$(this).mask('000.000.000-00')"
                              required>
                       <ul>
                         <li class="text-danger" th:each="error : ${#fields.errors('cpf')}" th:text="${error}"></li>
@@ -50,10 +51,11 @@
                 </div>
                 <div class="col-md-3 col-sm-12">
                   <div class="form-group row">
-                    <label for="pis" class="form-label col-sm-2 col-md-12 col-lg-3" th:text="#{user.form.pis}"></label>
-                    <div class="col-sm-10 col-md-12 col-lg-9">
+                    <label for="pis" class="form-label col-sm-2 col-md-12" th:text="#{user.form.pis}"></label>
+                    <div class="col-sm-10 col-md-12">
                       <input type="text" class="form-control" id="pis" th:placeholder="#{user.form.pis.placeholder}"
                              th:field="*{pis}"
+                             onkeyup="$(this).mask('000.00000.00-0')"
                              required>
                       <ul>
                         <li class="text-danger" th:each="error : ${#fields.errors('pis')}" th:text="${error}"></li>
@@ -66,9 +68,9 @@
               <div class="row">
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group row">
-                    <label for="email" class="form-label col-sm-2 col-md-12 col-lg-2" th:text="#{user.form.email}"></label>
-                    <div class="col-sm-10 col-md-12 col-lg-10">
-                      <input type="text" class="form-control" id="email"
+                    <label for="email" class="form-label col-sm-2 col-md-12" th:text="#{user.form.email}"></label>
+                    <div class="col-sm-10 col-md-12">
+                      <input type="email" class="form-control" id="email"
                              th:placeholder="#{user.form.email.placeholder}"
                              th:field="*{email}" required>
                       <ul>
@@ -79,8 +81,8 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group row">
-                    <label for="role" class="form-label col-sm-2 col-md-12 col-lg-2" th:text="#{user.form.role}"></label>
-                    <div class="col-sm-10 col-md-12 col-lg-10">
+                    <label for="role" class="form-label col-sm-2 col-md-12" th:text="#{user.form.role}"></label>
+                    <div class="col-sm-10 col-md-12">
                       <select name="role" id="role" class="form-control" style="width: 100%;" th:field="*{role}">
                         <option th:each="role : ${roles}" th:text="${role.name}" th:value="${role.id}"></option>
                       </select>
@@ -102,8 +104,8 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group row">
-                    <label for="password" class="form-label col-sm-2 col-md-12 col-lg-2" th:text="#{user.form.password}"></label>
-                    <div class="col-sm-10 col-md-12 col-lg-10">
+                    <label for="password" class="form-label col-sm-2 col-md-12" th:text="#{user.form.password}"></label>
+                    <div class="col-sm-10 col-md-12">
                       <input type="password" class="form-control" id="password" th:field="*{password}">
                       <ul>
                         <li class="text-danger" th:each="error : ${#fields.errors('password')}" th:text="${error}"></li>
@@ -125,6 +127,10 @@
     </div>
   </div>
 </main>
+
+<th:block th:fragment="scripts">
+  <th:block th:replace="~{fragments/_form-scripts :: form-scripts}"></th:block>
+</th:block>
 
 </body>
 </html>

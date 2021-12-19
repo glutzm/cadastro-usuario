@@ -11,10 +11,12 @@
   <div class="row">
     <div class="col-md-4 col-sm-12">
       <div class="form-group row">
-        <label for="cep" class="form-label col-sm-2 col-md-12 col-lg-3" th:text="#{address.form.cep}"></label>
-        <div class="col-sm-10 col-md-12 col-lg-9">
+        <label for="cep" class="form-label col-sm-2 col-md-12" th:text="#{address.form.cep}"></label>
+        <div class="col-sm-10 col-md-12">
           <input type="text" class="form-control" id="cep" th:placeholder="#{address.form.cep.placeholder}"
-                 th:field="*{address.cep}">
+                 th:field="*{address.cep}"
+                 onkeyup="$(this).mask('00.000-000')"
+          >
           <ul>
             <li class="text-danger" th:each="error : ${#fields.errors('address.cep')}"
                 th:text="${error}"></li>
@@ -24,8 +26,8 @@
     </div>
     <div class="col-md-4 col-sm-12">
       <div class="form-group row">
-        <label for="state" class="form-label col-sm-3 col-md-12 col-lg-3" th:text="#{address.form.state}"></label>
-        <div class="col-sm-9 col-md-12 col-lg-9">
+        <label for="state" class="form-label col-sm-3 col-md-12" th:text="#{address.form.state}"></label>
+        <div class="col-sm-9 col-md-12">
           <select th:field="*{address.state}" class="form-control" style="width: 100%;" id="state">
             <option th:each="state : ${states}" th:text="${state}" th:value="${state}"></option>
           </select>
@@ -38,8 +40,8 @@
     </div>
     <div class="col-md-4 col-sm-12">
       <div class="form-group row">
-        <label for="city" class="form-label col-sm-3 col-md-12 col-lg-3" th:text="#{address.form.city}"></label>
-        <div class="col-sm-9 col-md-12 col-lg-9">
+        <label for="city" class="form-label col-sm-3 col-md-12" th:text="#{address.form.city}"></label>
+        <div class="col-sm-9 col-md-12">
           <input type="text" class="form-control" id="city" th:placeholder="#{address.form.city.placeholder}"
                  th:field="*{address.city}">
           <ul>
@@ -54,8 +56,8 @@
   <div class="row">
     <div class="col-md-4 col-sm-12">
       <div class="form-group row">
-        <label for="street" class="form-label col-sm-2 col-md-12 col-lg-3" th:text="#{address.form.street}"></label>
-        <div class="col-sm-10 col-md-12 col-lg-9">
+        <label for="street" class="form-label col-sm-2 col-md-12" th:text="#{address.form.street}"></label>
+        <div class="col-sm-10 col-md-12">
           <input type="text" class="form-control" id="street"
                  th:placeholder="#{address.form.street.placeholder}" th:field="*{address.street}">
           <ul>
@@ -67,8 +69,8 @@
     </div>
     <div class="col-md-4 col-sm-12">
       <div class="form-group row">
-        <label for="number" class="form-label col-sm-3 col-md-12 col-lg-4" th:text="#{address.form.number}"></label>
-        <div class="col-sm-9 col-md-12 col-lg-8">
+        <label for="number" class="form-label col-sm-3 col-md-12" th:text="#{address.form.number}"></label>
+        <div class="col-sm-9 col-md-12">
           <input type="text" class="form-control" id="number" th:placeholder="#{address.form.number.placeholder}"
                  th:field="*{address.number}">
           <ul>
@@ -80,8 +82,8 @@
     </div>
     <div class="col-md-4 col-sm-12">
       <div class="form-group row">
-        <label for="number" class="form-label col-sm-2 col-md-12 col-lg-3" th:text="#{address.form.country}"></label>
-        <div class="col-sm-10 col-md-12 col-lg-9">
+        <label for="number" class="form-label col-sm-2 col-md-12" th:text="#{address.form.country}"></label>
+        <div class="col-sm-10 col-md-12">
           <input type="text" class="form-control" id="country" th:placeholder="#{address.form.country.placeholder}"
                  th:field="*{address.country}">
           <ul>
@@ -96,8 +98,8 @@
   <div class="row mb-3">
     <div class="col-sm-12">
       <div class="form-group row">
-        <label for="complement" class="form-label col-sm-4 col-md-12 col-lg-2" th:text="#{address.form.complement}"></label>
-        <div class="col-sm-8 col-md-12 col-lg-10">
+        <label for="complement" class="form-label col-sm-4 col-md-12" th:text="#{address.form.complement}"></label>
+        <div class="col-sm-8 col-md-12">
           <input type="text" class="form-control" id="complement"
                  th:placeholder="#{address.form.complement.placeholder}"
                  th:field="*{address.complement}">

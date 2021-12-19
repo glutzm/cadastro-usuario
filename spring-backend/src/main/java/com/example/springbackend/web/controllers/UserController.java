@@ -9,6 +9,7 @@ import com.example.springbackend.services.RoleService;
 import com.example.springbackend.services.UserService;
 import com.example.springbackend.util.FillUserForm;
 import com.example.springbackend.validators.CepValidator;
+import com.example.springbackend.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -39,9 +40,12 @@ public class UserController {
     @Autowired
     private CepValidator cepValidator;
 
+    @Autowired
+    private UserValidator userValidator;
+
     @InitBinder("user")
     private void initBinder(WebDataBinder binder) {
-        binder.addValidators(cepValidator);
+        binder.addValidators(cepValidator, userValidator);
     }
 
     @GetMapping
@@ -190,18 +194,13 @@ public class UserController {
         return mav;
     }
 
-    @PostMapping({"/{id}/update", "/profile"})
+    @PostMapping("/{id}/update")
     public ModelAndView update(
             @Valid User user,
             BindingResult result,
-            @PathVariable(required = false) Long id,
-            RedirectAttributes attributes
+            @PathVariable Long id
     ) {
-        ModelAndView mav = new ModelAndView("redirect:/");
-
-        if (id == null) {
-            id = user.getId();
-        }
+        ModelAndView mav = new ModelAndView("redirect:/admin/users");
 
         if (result.hasErrors()) {
             fillUserForm.fillForm(mav);
@@ -216,7 +215,7 @@ public class UserController {
 
         try {
             userService.update(user, id);
-            attributes.addFlashAttribute(
+            mav.addObject(
                     "alert",
                     new AlertDTO(
                             "Usuário atualizado com sucesso!",
@@ -224,10 +223,52 @@ public class UserController {
                     )
             );
         } catch (Exception e) {
-            attributes.addFlashAttribute(
+            mav.addObject(
                     "alert",
                     new AlertDTO(
                             "Usuário não pode ser atualizado!",
+                            "alert-danger"
+                    )
+            );
+        }
+
+        return mav;
+    }
+
+    @PostMapping("/profile")
+    public ModelAndView update(
+            @Valid User user,
+            BindingResult result
+    ) {
+        ModelAndView mav = new ModelAndView("redirect:/admin/users/profile");
+
+        if (result.hasErrors()) {
+            fillUserForm.fillForm(mav);
+            mav.setViewName("user/profile");
+            mav.addObject("alert",
+                    new AlertDTO(
+                            "Não foi possível atualizar seus dados!",
+                            "alert-danger"
+                    ));
+            mav.addObject("passwordForm", new ChangePasswordDTO());
+            return mav;
+        }
+        Long id = user.getId();
+
+        try {
+            userService.update(user, id);
+            mav.addObject(
+                    "alert",
+                    new AlertDTO(
+                            "Seus dados foram atualizado com sucesso!",
+                            "alert-success"
+                    )
+            );
+        } catch (Exception e) {
+            mav.addObject(
+                    "alert",
+                    new AlertDTO(
+                            "Não foi possível atualizar seus dados!",
                             "alert-danger"
                     )
             );

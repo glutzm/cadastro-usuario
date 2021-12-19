@@ -2,16 +2,16 @@ package com.example.springbackend.validators;
 
 import com.example.springbackend.entities.User;
 import com.example.springbackend.services.ViaCepService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-@Component
 public class CepValidator implements Validator {
 
-    @Autowired
-    private ViaCepService viaCepService;
+    private final ViaCepService viaCepService;
+
+    public CepValidator(ViaCepService viaCepService) {
+        this.viaCepService = viaCepService;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -23,9 +23,9 @@ public class CepValidator implements Validator {
         User user = (User) target;
         try {
             String cep = user.getAddress().getCep();
-            viaCepService.getAddressByCep(cep);
+            viaCepService.getAddressByCep(cep.replaceAll("[() .-]", ""));
         } catch (RuntimeException e) {
-            errors.rejectValue("cep", null, e.getMessage());
+            errors.rejectValue("address.cep", null, e.getMessage());
         }
     }
 }
