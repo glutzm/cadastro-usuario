@@ -2,13 +2,11 @@
 <html th:lang="${#locale}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::main}, _, ~{::scripts})}">
+      th:replace="~{layout :: layout (~{::title}, ~{::title}, ~{::main}, _, ~{::scripts})}">
 <head>
   <title>[[#{user.list.title}]]</title>
 </head>
 <body>
-
-<header>[[#{user.list.title}]]</header>
 
 <main>
   <div class="row">

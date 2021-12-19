@@ -3,7 +3,6 @@ package com.example.springbackend.web.controllers;
 import com.example.springbackend.dto.AlertDTO;
 import com.example.springbackend.dto.ChangePasswordDTO;
 import com.example.springbackend.entities.User;
-import com.example.springbackend.enums.State;
 import com.example.springbackend.exceptions.PasswordDoesNotMatchException;
 import com.example.springbackend.exceptions.UserNotFoundException;
 import com.example.springbackend.services.RoleService;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
@@ -55,6 +56,7 @@ public class UserController {
         ModelAndView mav = new ModelAndView("user/profile");
         User user = userService.searchByEmail(principal.getName());
         mav.addObject("user", user);
+        fillUserForm.fillForm(mav);
         mav.addObject("passwordForm", new ChangePasswordDTO());
         return mav;
     }
@@ -188,14 +190,18 @@ public class UserController {
         return mav;
     }
 
-    @PostMapping("/{id}/update")
+    @PostMapping({"/{id}/update", "/profile"})
     public ModelAndView update(
             @Valid User user,
             BindingResult result,
-            @PathVariable Long id,
+            @PathVariable(required = false) Long id,
             RedirectAttributes attributes
     ) {
-        ModelAndView mav = new ModelAndView("redirect:/admin/users");
+        ModelAndView mav = new ModelAndView("redirect:/");
+
+        if (id == null) {
+            id = user.getId();
+        }
 
         if (result.hasErrors()) {
             fillUserForm.fillForm(mav);
@@ -230,11 +236,19 @@ public class UserController {
         return mav;
     }
 
-    @GetMapping("/{id}/delete")
+    @GetMapping({"/{id}/delete", "/profile/delete"})
     public String delete(
-            @PathVariable Long id,
-            RedirectAttributes attributes
-    ) {
+            @PathVariable(required = false) Long id,
+            RedirectAttributes attributes,
+            Principal principal,
+            HttpServletRequest request
+    ) throws ServletException {
+        String action = "redirect:/admin/users";
+        if (id == null) {
+            id = userService.searchByEmail(principal.getName()).getId();
+            action = "redirect:/";
+            request.logout();
+        }
         try {
             userService.deleteById(id);
             attributes.addFlashAttribute(
@@ -252,7 +266,18 @@ public class UserController {
             );
         }
 
-        return "redirect:/admin/users";
+        return action;
+    }
+
+
+    // Caso queira implementar opção para o usuário se auto desabilitar
+    @GetMapping("/profile/disable")
+    public String profileDisable(Principal principal) {
+        User user = userService.searchByEmail(principal.getName());
+
+        userService.changeAvailability(user.getId());
+
+        return "redirect:/login";
     }
 
     @GetMapping(value = "/search", produces = "application/json")

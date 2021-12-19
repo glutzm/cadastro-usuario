@@ -12,13 +12,13 @@
   <div class="row">
     <div class="col-sm-12 mb-3">
       <div class="row">
-        <div class="col-md-3">
 
-          <!-- Profile Image -->
+        <div class="col-md-3">
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
-                <img alt="User profile picture" class="profile-user-img img-fluid img-circle" id="profile-user-img">
+                <img alt="User profile picture" class="profile-user-img img-fluid img-circle" id="profile-user-img"
+                     src="">
               </div>
 
               <h3 class="profile-username text-center" th:text="${user.name}"></h3>
@@ -50,57 +50,97 @@
             </div>
           </div>
         </div>
-        <div class="col-md-9" id="update-password">
-          <div class="card">
-            <div class="card-header p-3">
+
+        <div class="col-md-9">
+
+          <div class="acoes-usuario mb-3">
+            <div class="card">
+              <div class="card-header p-3">
+                <h6>Editar Dados</h6>
+              </div>
+              <div class="card-body">
+<!--                <a th:href="@{/admin/users/profile/update}"-->
+<!--                   class="btn btn-warning"-->
+<!--                   type="button"-->
+<!--                   data-bs-toggle="tooltip"-->
+<!--                   data-bs-placement="top"-->
+<!--                   th:title="#{profile.button.edit}"-->
+<!--                   th:text="#{profile.button.edit}"-->
+<!--                ></a>-->
+                <fieldset th:replace="~{admin/users/form :: user-form}"></fieldset>
+              </div>
+            </div>
+          </div>
+
+          <div class="acoes-usuario mb-3">
+            <div class="card">
+              <div class="card-header p-3">
                 <h6>Atualizar Senha</h6>
-            </div><!-- /.card-header -->
-<!--            TODO: Botão remover usuário-->
-            <div class="card-body">
-              <div class="tab-content">
-                <div class=" active tab-pane" id="mudar-senha">
-                  <form class="form-horizontal" method="POST" th:action="@{/admin/users/change-password}"
-                        th:object="${passwordForm}">
+              </div>
+              <div class="card-body">
+                <form class="form-horizontal" method="POST" th:action="@{/admin/users/change-password}"
+                      th:object="${passwordForm}">
 
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="form-group row">
-                          <label for="senhaAtual" class="form-label col-md-12 col-lg-3">Senha atual</label>
-                          <div class="col-md-12 col-lg-9">
-                            <input type="password" id="senhaAtual" class="form-control" th:field="*{currentPassword}">
-                            <ul>
-                              <li class="text-danger" th:each="error : ${#fields.errors('currentPassword')}"
-                                  th:text="${error}"></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-sm-12">
-                        <div class="form-group row">
-                          <label for="novaSenha" class="form-label col-md-12 col-lg-3">Nova senha</label>
-                          <div class="col-md-12 col-lg-9">
-                            <input type="password" id="novaSenha" class="form-control" th:field="*{newPassword}">
-                            <ul>
-                              <li class="text-danger" th:each="error : ${#fields.errors('newPassword')}"
-                                  th:text="${error}"></li>
-                            </ul>
-                          </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group row">
+                        <label for="senhaAtual" class="form-label col-md-12 col-lg-3">Senha atual</label>
+                        <div class="col-md-12 col-lg-9">
+                          <input type="password" id="senhaAtual" class="form-control" th:field="*{currentPassword}">
+                          <ul>
+                            <li class="text-danger" th:each="error : ${#fields.errors('currentPassword')}"
+                                th:text="${error}"></li>
+                          </ul>
                         </div>
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                      <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary">Alterar senha</button>
+                    <div class="col-sm-12">
+                      <div class="form-group row">
+                        <label for="novaSenha" class="form-label col-md-12 col-lg-3">Nova senha</label>
+                        <div class="col-md-12 col-lg-9">
+                          <input type="password" id="novaSenha" class="form-control" th:field="*{newPassword}">
+                          <ul>
+                            <li class="text-danger" th:each="error : ${#fields.errors('newPassword')}"
+                                th:text="${error}"></li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </form>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                      <button type="submit" class="btn btn-primary">Alterar senha</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="acoes-usuario mb-3">
+            <div class="card">
+              <div class="card-header p-3">
+                <h6>Excluir Meus Dados</h6>
+              </div>
+              <div class="card-body">
+                <div class="profile-action-button">
+                  <p class="text-danger">Cuidado! Uma vez que deletar sua conta não tem retorno!</p>
+                  <a th:href="@{/admin/users/profile/delete}"
+                     class="btn btn-danger"
+                     type="button"
+                     data-bs-toggle="tooltip"
+                     data-bs-placement="top"
+                     th:title="#{profile.button.delete}"
+                     th:text="#{profile.button.delete}"
+                     onclick="return confirm('Tem certeza de que deseja excluir sua própria conta?')"
+                  ></a>
                 </div>
               </div>
-            </div><!-- /.card-body -->
+            </div>
           </div>
-          <!-- /.card -->
+
         </div>
       </div>
     </div>

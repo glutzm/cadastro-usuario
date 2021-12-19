@@ -2,15 +2,13 @@
 <html th:lang="${#locale}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::main}, _, _)}">
+      th:replace="~{layout :: layout (~{::title}, ~{::title}, ~{::main}, _, _)}">
 
 <head>
   <title>[[${role.id == null ? 'Cadastrar' : 'Editar'}]] [[#{role.form.title}]]</title>
 </head>
 
 <body>
-
-<header>[[${role.id == null ? 'Cadastrar' : 'Editar'}]] [[#{role.form.title}]]</header>
 
 <main>
 

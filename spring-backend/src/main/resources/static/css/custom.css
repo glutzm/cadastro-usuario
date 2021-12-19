@@ -31,7 +31,7 @@ select[readonly] {
     text-align: center;
 }
 /*TODO: ajustar responsividade*/
-#update-password {
+.acoes-usuario {
     -webkit-border-radius: 5px;
     border-radius: 5px;
     background: #fff;
@@ -40,6 +40,10 @@ select[readonly] {
     box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
     text-align: center;
     height: fit-content;
+}
+
+.profile-action-button {
+    text-align: start;
 }
 
 .fieldset-content > legend {

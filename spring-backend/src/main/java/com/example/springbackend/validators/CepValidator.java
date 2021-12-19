@@ -13,7 +13,6 @@ public class CepValidator implements Validator {
     @Autowired
     private ViaCepService viaCepService;
 
-    // TODO: Verificar
     @Override
     public boolean supports(Class<?> clazz) {
         return User.class.isAssignableFrom(clazz);
