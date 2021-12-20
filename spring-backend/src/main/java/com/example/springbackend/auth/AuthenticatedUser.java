@@ -1,4 +1,4 @@
-package com.example.springbackend.security;
+package com.example.springbackend.auth;
 
 import com.example.springbackend.entities.User;
 import com.example.springbackend.enums.Role;
