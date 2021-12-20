@@ -3,7 +3,7 @@ package com.example.springbackend.security;
 import com.example.springbackend.entities.User;
 import com.example.springbackend.repositories.UserRepository;
 import com.example.springbackend.util.CpfValidator;
-import com.example.springbackend.util.PisValidator;
+import com.example.springbackend.util.PisFieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,20 +16,14 @@ public class AppUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PisValidator pisValidator;
-
-    @Autowired
-    private CpfValidator cpfValidator;
-
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user;
 
-        if (pisValidator.validate(login)){
+        if (PisFieldValidator.validate(login)){
             user = userRepository.findByPis(login)
                     .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
-        } else if (cpfValidator.validate(login)) {
+        } else if (CpfValidator.validate(login)) {
             user = userRepository.findByCpf(login)
                     .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
         } else {

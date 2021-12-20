@@ -1,25 +1,55 @@
 package com.example.springbackend.api.dto;
 
 import com.example.springbackend.entities.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.springbackend.util.UserInfoConverter;
+import com.example.springbackend.validators.PIS;
+import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.persistence.Convert;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class UserInsertDTO {
 
+    @NotEmpty
+    @Size(min = 3, max = 80)
     private String name;
+
+    @NotEmpty
+    @Email
+    @Size(min = 10, max = 80)
     private String email;
+
+    @NotEmpty
+    @CPF(message = "CPF inválido.")
+    @Size(min = 11, max = 14)
+    @Convert(converter = UserInfoConverter.class)
     private String cpf;
+
+    @NotEmpty
+    @PIS
+    @Size(min = 11, max = 14)
+    @Convert(converter = UserInfoConverter.class)
     private String pis;
+
+    @NotEmpty
+    @Size(min = 6, max = 255)
     private String password;
+
+    @NotEmpty
     private Boolean active;
 
+
+    @Valid
     private AddressDTO address;
+
+    @Valid
     private RoleDTO role;
 
     public UserInsertDTO(User entity) {

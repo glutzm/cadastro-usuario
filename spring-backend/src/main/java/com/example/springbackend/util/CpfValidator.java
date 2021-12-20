@@ -1,11 +1,8 @@
 package com.example.springbackend.util;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class CpfValidator {
 
-    public boolean validate(String cpf) {
+    public static boolean validate(String cpf) {
         int digito1Aux = 0, digito2Aux = 0, digitoCpf;
         int digito1 = 0, digito2 = 0, restoDivisao = 0;
         String digitoVerificador, digitoResultado;

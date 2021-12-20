@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class RoleDTO {
 
+    @NotEmpty
     private Long id;
     private String name;
 

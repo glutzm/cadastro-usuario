@@ -2,15 +2,10 @@ package com.example.springbackend.validators;
 
 import com.example.springbackend.entities.User;
 import com.example.springbackend.repositories.UserRepository;
-import com.example.springbackend.util.PisValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 public class UserValidator implements Validator {
-
-    @Autowired
-    private PisValidator pisValidator;
 
     private final UserRepository repository;
 
@@ -35,9 +30,6 @@ public class UserValidator implements Validator {
 
         // Validação PIS
         userFound = repository.findByPis(user.getPis());
-        if (!pisValidator.validate(user.getPis().replaceAll("[() .-]", ""))) {
-            errors.rejectValue("pis", "validate.user.pis.invalid");
-        }
         if (userFound.isPresent() && !userFound.get().equals(user)) {
             errors.rejectValue("pis", "validate.user.pis.exists");
         }

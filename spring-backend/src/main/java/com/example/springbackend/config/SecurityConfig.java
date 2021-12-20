@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -21,6 +20,8 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String USER_API_URL = "/api/v1/users/**";
 
     @Autowired
     private Environment env;
@@ -45,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
-                .antMatchers("/admin/users/profile").authenticated()
+                .antMatchers("/admin/users/profile", USER_API_URL).authenticated()
                 .antMatchers("/admin/users/**", "/admin/roles/**").hasRole("ADMIN");
         http.csrf()
                 .ignoringAntMatchers("/api/v1/**");

@@ -1,6 +1,7 @@
 package com.example.springbackend.entities;
 
 import com.example.springbackend.util.UserInfoConverter;
+import com.example.springbackend.validators.PIS;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
@@ -39,12 +40,12 @@ public abstract class Person {
     @NotNull
     @CPF(message = "CPF inválido.")
     @Size(min = 11, max = 14)
-    @Convert(converter = UserInfoConverter.class)  // TODO: rever converters
+    @Convert(converter = UserInfoConverter.class)
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
 
-    //TODO criar custom validador PIS
     @NotNull
+    @PIS
     @Size(min = 11, max = 14)
     @Convert(converter = UserInfoConverter.class)
     @Column(nullable = false, length = 11, unique = true)

@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 
 import static org.junit.Assert.assertEquals;
 
-public class UserUT {
+public class UserDTOUT {
 
     private static final ModelMapper modelMapper = new ModelMapper();
 

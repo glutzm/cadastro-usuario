@@ -1,11 +1,8 @@
 package com.example.springbackend.util;
 
-import org.springframework.stereotype.Component;
+public class PisFieldValidator {
 
-@Component
-public class PisValidator {
-
-    public boolean validate(String pis) {
+    public static boolean validate(String pis) {
         int tamanho = 0;
         int totalizador = 0;
         int resto = 0;
