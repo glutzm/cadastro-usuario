@@ -59,6 +59,9 @@ public class Address {
 
     private String complement;
 
+    @OneToOne(mappedBy = "address")
+    private User user;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "create_date_time")
     @CreationTimestamp

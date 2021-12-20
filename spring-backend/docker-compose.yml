@@ -4,11 +4,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: cadastro-usuario-web:latest
+    restart: always
+    environment:
+      APP_PROFILE: docker
+    env_file:
+      - src/main/resources/.env.docker
     depends_on:
       - db
     ports:
-      - "80:8080"
+      - "8080:8080"
     networks:
       - cadastro-usuario-web
 

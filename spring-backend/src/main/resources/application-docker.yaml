@@ -1,0 +1,41 @@
+# Spring Data
+spring:
+  datasource:
+    url: ${env.JDBC_CONNECTOR}
+    username: ${env.DB_USERNAME}
+    password: ${env.DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${env.DB_INIT}
+    show-sql: ${env.SHOW_SQL}
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  sql:
+    init:
+      platform: postgresql
+      mode: always
+
+  messages:
+    basename: languages/messages
+
+  thymeleaf:
+    cache: false
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
+# Spring Security
+server:
+  port: ${env.SERVER_PORT}
+#  ssl:
+#    enabled: true
+#    key-store: classpath:cadastro-usuario-web.p12
+#    key-store-type: PKCS12
+#    key-store-password: ${env.SERVER_SSL_PASS}

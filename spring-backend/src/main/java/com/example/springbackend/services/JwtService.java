@@ -14,12 +14,14 @@ import java.util.Map;
 @Service
 public class JwtService {
 
-//    @Value("${app.signinkey}")
+//    @Value("${myapp.signinkey}")
     private static final String SIGNING_KEY = "ce75a659c8e354fa5cc94b68219ac6b7d0529be396aa3667b809191de90a9cf5f93e5886f0cd6686b3917e67c51896a83e7ae705d31dd1c2ef7057d206dcadb8"; //512
+//    @Value("${myapp.refreshsigninkey}")
     private static final String REFRESH_SIGNING_KEY = "6d909d9dab2fe0bf34066547baec2c4c51841868dba2a6946fad906f709deecd"; //256
 
-//    @Value("${app.expirationtime}")
+//    @Value("${myapp.expirationtime}")
     private static final int EXPIRATION_TIME = 30;
+//    @Value("${myapp.refreshexpirationtime}")
     private static final int REFRESH_EXPIRATION_TIME = 2 * EXPIRATION_TIME;
 
     public String generateToken(Authentication authentication) {
