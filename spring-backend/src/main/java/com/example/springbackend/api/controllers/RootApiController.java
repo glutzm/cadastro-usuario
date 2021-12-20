@@ -21,16 +21,6 @@ public class RootApiController implements RootApiControllerDoc {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/auth")
-    public JwtResponse auth(@RequestBody @Valid UserLoginDTO user) {
-        return authService.createJwtResponse(user);
-    }
-
-    @PostMapping("/refresh/{refreshToken}")
-    public JwtResponse refresh(@PathVariable String refreshToken) {
-        return authService.createJwtResponse(refreshToken);
-    }
-
     @GetMapping
     public RootModel root() {
         RootModel rootModel = new RootModel();
@@ -44,11 +34,31 @@ public class RootApiController implements RootApiControllerDoc {
                 .withType("POST")
                 .withTitle("Inserir usuários.");
 
+        Link authLink = linkTo(methodOn(RootApiController.class).auth(null))
+                .withSelfRel()
+                .withType("POST")
+                .withTitle("Autenticação da API.");
+
+        Link refreshLink = linkTo(methodOn(RootApiController.class).refresh(null))
+                .withSelfRel()
+                .withType("POST")
+                .withTitle("Revalidação da autenticação por token JWT.");
+
         rootModel.add(
                 userListLink,
                 userInsertLink
         );
 
         return rootModel;
+    }
+
+    @PostMapping("/auth")
+    public JwtResponse auth(@RequestBody @Valid UserLoginDTO user) {
+        return authService.createJwtResponse(user);
+    }
+
+    @PostMapping("/refresh/{refreshToken}")
+    public JwtResponse refresh(@PathVariable String refreshToken) {
+        return authService.createJwtResponse(refreshToken);
     }
 }
