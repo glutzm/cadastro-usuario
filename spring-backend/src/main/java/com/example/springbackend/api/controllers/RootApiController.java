@@ -26,6 +26,11 @@ public class RootApiController implements RootApiControllerDoc {
         return authService.createJwtResponse(user);
     }
 
+    @PostMapping("/refresh/{refreshToken}")
+    public JwtResponse refresh(@PathVariable String refreshToken) {
+        return authService.createJwtResponse(refreshToken);
+    }
+
     @GetMapping
     public RootModel root() {
         RootModel rootModel = new RootModel();

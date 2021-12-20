@@ -10,6 +10,7 @@ import com.example.springbackend.util.PisFieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -55,9 +56,23 @@ public class AuthService implements UserDetailsService {
 
         var authenticatedUser = authenticationManager.authenticate(authentication);
 
-        String token = jwtService.generateToken(authenticatedUser);
-        Date expiresAt = jwtService.getExpirationFromToken(token);
+        return createJwtResponse(authenticatedUser);
+    }
 
-        return new JwtResponse(token, "Bearer", expiresAt);
+    public JwtResponse createJwtResponse(String refreshToken) {
+        String login = jwtService.getLoginFromRefreshToken(refreshToken);
+        String password = loadUserByUsername(login).getPassword();
+
+        var authenticatedUser = new UsernamePasswordAuthenticationToken(login, password);
+
+        return createJwtResponse(authenticatedUser);
+    }
+
+    private JwtResponse createJwtResponse(Authentication authentication) {
+        String token = jwtService.generateToken(authentication);
+        Date expiresAt = jwtService.getExpirationFromToken(token);
+        String refreshToken = jwtService.generateRefreshToken(authentication.getName());
+
+        return new JwtResponse(token, "Bearer", expiresAt, refreshToken);
     }
 }
