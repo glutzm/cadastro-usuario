@@ -68,7 +68,7 @@
               <div class="card-header p-3">
                 <h6>Atualizar Senha</h6>
               </div>
-              <div class="card-body">
+              <div class="card-body mb-3">
                 <form class="form-horizontal" method="POST" th:action="@{/admin/users/change-password}"
                       th:object="${passwordForm}">
 
@@ -113,7 +113,7 @@
               <div class="card-header p-3">
                 <h6>Excluir Meus Dados</h6>
               </div>
-              <div class="card-body">
+              <div class="card-body mb-3">
                 <div class="profile-action-button">
                   <p class="text-danger">Cuidado! Uma vez que deletar sua conta não tem retorno!</p>
                   <a th:href="@{/admin/users/profile/delete}"
