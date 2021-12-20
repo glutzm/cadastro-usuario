@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
-                .antMatchers("/admin/users/**").authenticated()
-                .antMatchers("/admin/roles/**").hasRole("ADMIN");
+                .antMatchers("/admin/users/profile").authenticated()
+                .antMatchers("/admin/users/**", "/admin/roles/**").hasRole("ADMIN");
         http.csrf()
                 .ignoringAntMatchers("/api/v1/**");
 //        http.cors().disable();
