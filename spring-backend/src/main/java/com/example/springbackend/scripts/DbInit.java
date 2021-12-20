@@ -40,7 +40,7 @@ public class DbInit implements CommandLineRunner {
                     "Admin",
                     "admin@app.com",
                     "62734592746",
-                    "62734591746",
+                    "04486540157",
                     Address.builder()
                             .country("Brasil")
                             .state(State.MG)
@@ -49,7 +49,7 @@ public class DbInit implements CommandLineRunner {
                             .street("Rua Eder da Silveira")
                             .number("982")
                             .build(),
-                    passwordEncoder.encode("12345"),
+                    passwordEncoder.encode("123456"),
                     true,
                     roleRepository.getById(1L));
             userRepository.save(admin);

@@ -3,6 +3,8 @@ package com.example.springbackend.util;
 public class PisFieldValidator {
 
     public static boolean validate(String pis) {
+
+        pis = pis.replaceAll("[() .-]", "");
         int tamanho = 0;
         int totalizador = 0;
         int resto = 0;
