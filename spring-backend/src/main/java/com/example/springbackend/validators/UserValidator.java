@@ -23,20 +23,20 @@ public class UserValidator implements Validator {
         User user = (User) target;
 
         // Validação CPF
-        var userFound = repository.findByCpf(user.getCpf());
-        if (userFound.isPresent() && !userFound.get().equals(user)) {
+        var foundUser = repository.findByCpf(user.getCpf());
+        if (foundUser.isPresent() && !foundUser.get().equals(user)) {
             errors.rejectValue("cpf", "validate.user.cpf.exists");
         }
 
         // Validação PIS
-        userFound = repository.findByPis(user.getPis());
-        if (userFound.isPresent() && !userFound.get().equals(user)) {
+        foundUser = repository.findByPis(user.getPis());
+        if (foundUser.isPresent() && !foundUser.get().equals(user)) {
             errors.rejectValue("pis", "validate.user.pis.exists");
         }
 
         // Validação E-mail
-        userFound = repository.findByEmail(user.getEmail());
-        if (userFound.isPresent() && !userFound.get().equals(user)) {
+        foundUser = repository.findByEmail(user.getEmail());
+        if (foundUser.isPresent() && !foundUser.get().equals(user)) {
             errors.rejectValue("email", "validate.user.email.exists");
         }
     }

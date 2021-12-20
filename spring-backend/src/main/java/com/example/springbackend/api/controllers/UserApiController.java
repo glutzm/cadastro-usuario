@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserApiController implements UserApiControllerDoc {
@@ -46,14 +48,14 @@ public class UserApiController implements UserApiControllerDoc {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public EntityModel<UserResponse> insert(@DTO(UserInsertDTO.class) User user) {
+    public EntityModel<UserResponse> insert(@RequestBody @Valid @DTO(UserInsertDTO.class) User user) {
         UserResponse response = new UserResponse(userService.insert(user));
         return userAssembler.toModel(response);
     }
 
     @PutMapping("/{id}")
     public EntityModel<UserResponse> update(
-            @DTO(UserUpdateDTO.class) User user,
+            @RequestBody @Valid @DTO(UserUpdateDTO.class) User user,
             @PathVariable Long id) {
         UserResponse response = new UserResponse(userService.update(user, id));
         return userAssembler.toModel(response);

@@ -72,13 +72,13 @@ public class UserService {
     }
 
     public User update(User user, Long id) {
-        User userFound = searchById(id);
+        User foundUser = searchById(id);
 
-        user.setCreateDateTime(userFound.getCreateDateTime());
+        user.setCreateDateTime(foundUser.getCreateDateTime());
 
         // Verificar se houve troca de senha
         if (user.getPassword() == null) {
-            user.setPassword(userFound.getPassword());
+            user.setPassword(foundUser.getPassword());
         } else {
             String encryptedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encryptedPassword);
@@ -86,15 +86,15 @@ public class UserService {
 
         // Verificar se houve troca de endereço
         if (user.getAddress() == null) {
-            user.setAddress(userFound.getAddress());
+            user.setAddress(foundUser.getAddress());
         } else {
-            user.getAddress().setId(userFound.getAddress().getId());
-            user.getAddress().setCreateDateTime(userFound.getAddress().getCreateDateTime());
+            user.getAddress().setId(foundUser.getAddress().getId());
+            user.getAddress().setCreateDateTime(foundUser.getAddress().getCreateDateTime());
         }
 
         // Verificar se houve troca de cargo
         if (user.getRole() == null) {
-            user.setRole(userFound.getRole());
+            user.setRole(foundUser.getRole());
         } else {
             user.setRole(roleService.searchById(user.getRole().getId()));
         }

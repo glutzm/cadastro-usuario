@@ -3,3 +3,7 @@ spring:
     active: ${APP_PROFILE:dev}
   jpa:
     open-in-view: false
+
+app:
+  signinkey: ${env.SIGNIN_KEY}
+  expirationtime: ${env.EXPIRATION_TIME}

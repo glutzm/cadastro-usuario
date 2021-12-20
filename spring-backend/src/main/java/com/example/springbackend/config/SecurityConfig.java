@@ -1,15 +1,19 @@
 package com.example.springbackend.config;
 
-import com.example.springbackend.security.AppUserDetailsServiceImpl;
+import com.example.springbackend.filters.ExceptionHandlerFilter;
+import com.example.springbackend.filters.JwtRequestFilter;
+import com.example.springbackend.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -27,10 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Environment env;
 
     @Autowired
-    private AppUserDetailsServiceImpl appUserDetailsService;
+    private AuthService appUserDetailsService;
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ExceptionHandlerFilter handlerFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,11 +55,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
 
         http.authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/", "/index", "/sign-in", "/api/v1/auth").permitAll()
                 .antMatchers("/admin/users/profile", USER_API_URL).authenticated()
                 .antMatchers("/admin/users/**", "/admin/roles/**").hasRole("ADMIN");
         http.csrf()
                 .ignoringAntMatchers("/api/v1/**");
+
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(handlerFilter, JwtRequestFilter.class);
 //        http.cors().disable();
         http.formLogin()
                 .loginPage("/login")
@@ -69,5 +82,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

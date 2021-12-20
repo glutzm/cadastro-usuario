@@ -1,11 +1,15 @@
 package com.example.springbackend.api.controllers;
 
 import com.example.springbackend.api.docs.RootApiControllerDoc;
+import com.example.springbackend.api.dto.JwtResponse;
+import com.example.springbackend.api.dto.UserLoginDTO;
 import com.example.springbackend.api.hateoas.RootModel;
+import com.example.springbackend.services.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -13,6 +17,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/api/v1")
 public class RootApiController implements RootApiControllerDoc {
+
+    @Autowired
+    private AuthService authService;
+
+    @PostMapping("/auth")
+    public JwtResponse auth(@RequestBody @Valid UserLoginDTO user) {
+        return authService.createJwtResponse(user);
+    }
 
     @GetMapping
     public RootModel root() {
