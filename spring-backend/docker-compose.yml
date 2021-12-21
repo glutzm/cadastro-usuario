@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      APP_PROFILE: docker
+      SPRING_PROFILE: docker
     env_file:
       - src/main/resources/.env.docker
     depends_on:

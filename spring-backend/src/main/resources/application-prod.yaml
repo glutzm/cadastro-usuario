@@ -7,7 +7,7 @@ spring:
     basename: languages/messages
 
   thymeleaf:
-    cache: false
+    cache: true
 
   data:
     web:
