@@ -10,7 +10,7 @@ Requisitos
 - [ ] Testes unitários
 
 Geral
-- [ ] "Dockerizar" aplicação (Dockerfile + docker-compose)
+- [x] "Dockerizar" aplicação (Dockerfile + docker-compose)
 - [x] Integrar com variáveis de ambiente
 
 Back-end
@@ -20,7 +20,7 @@ Back-end
 - [x] Criar painel administrativo
 - [x] Realizar autenticação JWT
 - [x] Desenvolver lógica
-- [ ] Subir Back-end Heroku
+- [x] Subir Back-end Heroku
 
 Front-end
 - [x] Escolher tecnologia (Thymeleaf)
